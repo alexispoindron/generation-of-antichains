@@ -1,0 +1,96 @@
+import random
+
+N = [0, 1, 2, 3]
+n = len(N)
+
+
+def generate_subsets(N):
+    all_subsets = [[]]
+
+    for element in N:
+        current_subsets = [subset + [element] for subset in all_subsets]
+        all_subsets.extend(current_subsets)
+    return all_subsets
+
+
+def intersection(S, T):
+    return [k for k in S if k in T]
+
+
+def union(S, T):
+    uni = set(S)
+    uni.update(T)
+    return list(uni)
+
+
+def setminus(S, T):
+    setm = list(S)
+    for k in T:
+        if k in S:
+            S.remove(k)
+    return S
+
+
+def interval(S, T):  # recursive function
+    ST = []
+    for k in generate_subsets(setminus(union(S, T), intersection(S, T))):
+        ST.append(union(S, k))
+    return ST
+
+
+def intercol(F0, F1):
+    coll = [k for k in F0 if k in F1]
+    return coll
+
+def extract_antichain(F1):
+    antichain=[]
+    for K in F1:
+        flag=1
+        for J in interval([],K):
+            if J !=K and J in F1:
+                flag=0
+        if flag==1:
+            antichain.append(K)
+    return antichain
+
+
+remaining_subsets = generate_subsets(N)
+removed_subsets = []
+F0 = []
+F1 = []
+
+while len(F0) + len(F1) != 2**n:
+    # print("remaining_subsets",remaining_subsets)
+    S = random.choice(remaining_subsets)
+    if random.random() < 1/2:
+        value = 0
+    else:
+        value = 1
+    #print(S, value)
+
+    if value == 0:
+        for K in interval([], S):
+            if K not in F0 and K not in removed_subsets:
+                F0.append(K)
+                removed_subsets.append(K)
+
+    else:
+        for K in interval(S, N):
+            if K not in F1 and K not in removed_subsets:
+                F1.append(K)
+                removed_subsets.append(K)
+
+    remaining=[]
+    for K in remaining_subsets:
+        if K not in removed_subsets:
+            remaining.append(K)
+    remaining_subsets=remaining.copy()
+
+    #print("")
+    #print("remaining_subsets", remaining_subsets)
+    #print("intercol", intercol(F0, F1))
+
+print("F0", F0)
+print("F1", F1)
+
+print("antichain=",extract_antichain(F1))

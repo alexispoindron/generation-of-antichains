@@ -1,3 +1,4 @@
+# Reshuffling method
 import random
 
 N=[0,1,2,3,4]

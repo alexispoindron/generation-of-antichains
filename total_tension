@@ -32,6 +32,12 @@ def setminus(S, T):
             SS.remove(k)
     return SS
 
+def is_subset(V1,V2):
+    flag=1
+    for k in V1:
+        if k not in V2:
+            flag=0
+    return flag
 
 lin_ext = linear_extensions.ALL_ext[len(linear_extensions.ALL_ext) - 1]
 
@@ -46,6 +52,8 @@ def give_index(S):
             return k
     
     
+list_of_tensions = [[] for _ in range((2**n)*n)]
+    
 def tension(S):
     count=0
     for k in setminus(N,S):
@@ -55,5 +63,35 @@ def tension(S):
 
 count=0
 for S in generate_subsets(N.copy()):
-    count+=tension(S)
-print(count)
+    tS=tension(S)
+    count+=tS
+    list_of_tensions[tS].append(S)
+print("total tension=",count)
+print("list of tensions=",list_of_tensions)
+
+
+def can_be_added_to_antichain(antichain,S):
+    flag=1
+    for ase in antichain:
+        if is_subset(S,ase)==1 or is_subset(ase,S)==1:
+            flag=0
+    return flag
+
+
+antichain=[]
+flag=1
+for sett in range(len(list_of_tensions)-1,-1,-1):
+    if flag !=0:
+        if list_of_tensions[sett] !=[]:
+            for u in list_of_tensions[sett]:
+                if can_be_added_to_antichain(antichain,u)==1:
+                    antichain.append(u)
+                else:
+                    flag=0
+
+print(antichain)
+        
+        
+        
+        
+        

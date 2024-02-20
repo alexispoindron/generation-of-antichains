@@ -1,0 +1,59 @@
+# This algorithm calculates the overall tension of a labelled Hasse-diagram.
+# A labelled Hasse diagram represents a game (monotone values) where all values
+# from 0 to 2^n-1 are used.
+
+import linear_extensions
+
+
+N=linear_extensions.N
+n=len(N)
+
+from itertools import chain, combinations
+
+def generate_subsets(N):
+    all_subsets = [[]]
+    for element in N:
+        current_subsets = [subset + [element] for subset in all_subsets]
+        all_subsets.extend(current_subsets)
+    return all_subsets
+
+
+def union(S, T):
+    uni = set(S)
+    uni.update(T)
+    return list(uni)
+
+
+def setminus(S, T):
+    SS=S.copy()
+    setm = list(SS)
+    for k in T:
+        if k in SS:
+            SS.remove(k)
+    return SS
+
+
+lin_ext = linear_extensions.ALL_ext[len(linear_extensions.ALL_ext) - 1]
+
+values_sets=[]
+for k in range(2**n):
+    values_sets.append([lin_ext[k],k])
+    
+    
+def give_index(S):
+    for k in range(2**n):
+        if values_sets[k][0]==S:
+            return k
+    
+    
+def tension(S):
+    count=0
+    for k in setminus(N,S):
+        count+= give_index(union(S,[k]))-give_index(S)
+    return count
+
+
+count=0
+for S in generate_subsets(N.copy()):
+    count+=tension(S)
+print(count)

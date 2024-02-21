@@ -1,0 +1,41 @@
+# Algo 5. Smooth stratification method
+
+import linear_extensions
+import random
+
+def is_subset(V1,V2):
+    flag=1
+    for k in V1:
+        if k not in V2:
+            flag=0
+    return flag
+
+
+def test_if_can_be_added(antichain,S):
+    flag=1
+    for T in antichain:
+        if is_subset(T,S)==1:
+            flag=0
+    return flag
+
+N=linear_extensions.N
+n=len(N)
+ALL_ext=linear_extensions.ALL_ext
+
+extension=ALL_ext[0]
+
+list_antichains=[]
+antichain=[extension[1]]
+
+
+    
+for k in range(2**n-1):
+    if test_if_can_be_added(antichain,extension[k+1])==1:
+        antichain.append(extension[k+1])
+    else:
+        list_antichains.append(antichain)
+        antichain=[]
+
+
+for k in list_antichains:
+    print(k)

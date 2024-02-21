@@ -1,6 +1,7 @@
 # This algorithm calculates the overall tension of a labelled Hasse-diagram.
-# A labelled Hasse diagram represents a game (monotone values) where all values
-# from 0 to 2^n-1 are used.
+# A labelled Hasse diagram represents a game (monotone values) where 
+# we set ordered random values in [0,1] (traditional approach to generate capacities)
+# (Algorithm 9.bis)
 
 import linear_extensions
 import random

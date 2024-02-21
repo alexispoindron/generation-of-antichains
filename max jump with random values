@@ -1,4 +1,4 @@
-# This algorithm calculates the overall tension of a labelled Hasse-diagram.
+# This algorithm generates an antichain according to the maximal jump criterion.
 # A labelled Hasse diagram represents a game (monotone values) where 
 # we set ordered random values in [0,1] (traditional approach to generate capacities)
 # (Algorithm 9.bis)

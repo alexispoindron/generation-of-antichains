@@ -101,7 +101,17 @@ while len(attributed) !=tot:
                 list_antichains.append(antichain)
                 flag=1
 
-    
+
 for k in list_antichains:
+    k=sorted(k)
+
+final_list_antichains=[]
+for k in list_antichains:
+    if k not in final_list_antichains:
+        final_list_antichains.append(k)
+
+for k in final_list_antichains:
     print(k)
-        
+
+print(len(final_list_antichains))
+    

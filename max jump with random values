@@ -2,7 +2,7 @@
 # A labelled Hasse diagram represents a game (monotone values) where 
 # we set ordered random values in [0,1] (traditional approach to generate capacities)
 # (Algorithm 9.bis)
-
+# Do not forget to download the file linear_extensions and to have it in the same folder
 import linear_extensions
 import random
 

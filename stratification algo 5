@@ -1,5 +1,5 @@
 # Algo 5. Smooth stratification method
-
+# Do not forget to download the file linear_extensions and to have it in the same folder
 import linear_extensions
 import random
 

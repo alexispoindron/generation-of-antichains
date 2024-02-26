@@ -89,7 +89,8 @@ for sett in range(len(list_of_tensions)-1,-1,-1):
                 else:
                     flag=0
 
-print(antichain)
+
+print("antichain=",antichain)
         
         
         

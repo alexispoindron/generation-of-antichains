@@ -47,7 +47,7 @@ while not no_more_added:
 # Convertir les sets en listes pour l'affichage
 antichains = [[list(s) for s in A] for A in antichains]
 antichains.remove([[]])
-antichains.remove([])
+
 
 
 

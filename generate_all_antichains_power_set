@@ -1,6 +1,6 @@
 import itertools
 
-N = [1, 2, 3,4]
+N = [1,2,3,4]
 antichains = [{frozenset(N)}]  # Convertir en ensemble immuable (frozenset) pour qu'il soit hashable
 n = len(N)
 
@@ -46,7 +46,12 @@ while not no_more_added:
 
 # Convertir les sets en listes pour l'affichage
 antichains = [[list(s) for s in A] for A in antichains]
+antichains.remove([[]])
 antichains.remove([])
 
-print(antichains)
-print(len(antichains),"antichains")
+
+
+# Écrire la liste dans un fichier texte
+with open("antichains4.txt", "w") as file:
+    for A in antichains:
+        file.write(str(A) + "\n")

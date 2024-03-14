@@ -5,13 +5,13 @@
 import itertools
 
 N = [1,2,3,4]
-antichains = [{frozenset(N)}]  # Convertir en ensemble immuable (frozenset) pour qu'il soit hashable
+antichains = [{frozenset(N)}]
 n = len(N)
 
 def give_me_down_hasse(S):
     L = []
     for k in S:
-        SS = set(S)  # Convertir la liste en ensemble
+        SS = set(S)
         SS.remove(k)
         L.append(SS)
     return L
@@ -32,7 +32,7 @@ def is_an_antichain(A):
 no_more_added = False
 while not no_more_added:
     no_more_added = True
-    for AA in antichains.copy():  # Copier la liste pour éviter la modification en cours de parcours
+    for AA in antichains.copy():
         for S in AA:
             downhasse = give_me_down_hasse(S)
             subcollections = []
@@ -42,20 +42,18 @@ while not no_more_added:
                 AAC = AA.copy()
                 AAC.remove(S)
                 for T in TT:
-                    AAC.add(frozenset(T))  # Convertir T en frozenset avant de l'ajouter
+                    AAC.add(frozenset(T))
                 if is_an_antichain(AAC):
                     if AAC not in antichains:
                         antichains.append(AAC)
                         no_more_added = False
 
-# Convertir les sets en listes pour l'affichage
+
 antichains = [[list(s) for s in A] for A in antichains]
 antichains.remove([])
 
 
 
-
-# Écrire la liste dans un fichier texte
 with open("antichains4.txt", "w") as file:
     for A in antichains:
         file.write(str(A) + "\n")

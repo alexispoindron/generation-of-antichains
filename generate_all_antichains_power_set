@@ -1,0 +1,50 @@
+import itertools
+
+N = [1, 2, 3,4]
+antichains = [{frozenset(N)}]  # Convertir en ensemble immuable (frozenset) pour qu'il soit hashable
+n = len(N)
+
+def give_me_down_hasse(S):
+    L = []
+    for k in S:
+        SS = set(S)  # Convertir la liste en ensemble
+        SS.remove(k)
+        L.append(SS)
+    return L
+
+
+def is_subset(V1, V2):
+    return V1.issubset(V2)
+
+
+def is_an_antichain(A):
+    for S in A:
+        for T in A:
+            if S != T:
+                if is_subset(S, T) or is_subset(T, S):
+                    return False
+    return True
+
+no_more_added = False
+while not no_more_added:
+    no_more_added = True
+    for AA in antichains.copy():  # Copier la liste pour éviter la modification en cours de parcours
+        for S in AA:
+            downhasse = give_me_down_hasse(S)
+            subcollections = []
+            for r in range(len(downhasse) + 1):
+                subcollections.extend(itertools.combinations(downhasse, r))
+            for TT in subcollections:
+                AAC = AA.copy()
+                AAC.remove(S)
+                for T in TT:
+                    AAC.add(frozenset(T))  # Convertir T en frozenset avant de l'ajouter
+                if is_an_antichain(AAC):
+                    if AAC not in antichains:
+                        antichains.append(AAC)
+                        no_more_added = False
+
+# Convertir les sets en listes pour l'affichage
+antichains = [[list(s) for s in A] for A in antichains]
+
+print(antichains)

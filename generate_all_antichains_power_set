@@ -1,3 +1,7 @@
+# This algorithm generates the antichains of the power set
+# Notice that [[]] is also an antichain, corresponding to the constant function, equal to 1.
+# The number of antichains is D(n)-1, where D(n) is the nth Dedekind number.
+
 import itertools
 
 N = [1,2,3,4]

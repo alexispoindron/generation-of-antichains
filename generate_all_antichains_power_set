@@ -54,6 +54,6 @@ antichains.remove([])
 
 
 
-with open("antichains4.txt", "w") as file:
+with open("antichains5.txt", "w") as file:
     for A in antichains:
         file.write(str(A) + "\n")
